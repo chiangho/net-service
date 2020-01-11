@@ -1,5 +1,7 @@
 package com.github.chiangho.nat_service;
 
+import java.io.UnsupportedEncodingException;
+
 import org.jnetpcap.nio.JBuffer;
 import org.jnetpcap.packet.PcapPacket;
 import org.jnetpcap.protocol.network.Icmp;
@@ -43,6 +45,17 @@ public class PacketParse {
         //}
     }
      
+    public static int bytesToInt(byte[] b) {
+    	int a  = 0;
+        
+        a = (int) (a|(b[0] & 0xff ));
+        a = (int) (a<<8);
+        
+        a = (int) (a|(b[1] & 0xff ));
+        
+        return a;
+    }
+    
     private void handleTcp(PcapPacket packet) {
         packet.getHeader(tcp);
         String srcPort = String.valueOf(tcp.source());
@@ -52,6 +65,11 @@ public class PacketParse {
          
         byte[] buff = new byte[packet.getTotalSize()];
         packet.transferStateAndDataTo(buff);
+        System.out.println("----------------------------------"); 
+       
+        
+		System.out.println("@@@@@@"+bytesToInt(new byte[] {tcp.getHeader()[0],tcp.getHeader()[1],0,0}));
+        
         JBuffer jb = new JBuffer(buff);
         String content = jb.toHexdump();
         //for(int i = 0; i < tcpRules.size(); i++) {
@@ -102,15 +120,15 @@ public class PacketParse {
 	
 	private void sendMessage() {
 //	        MessageCenter.sendMessage(message);
-		System.out.println(this.message.getPacket());
+		//System.out.println(this.message.getPacket());
 	}
 
 	public Object getString() {
-		System.out.printf("sip %s \n\t",message.getSip());
-		System.out.printf("sport %s \n\t",message.getSport());
-		System.out.printf("dip %s \n\t",message.getDip());
-		System.out.printf("dport %s \n\t",message.getDport());
-		
+		System.out.printf("sip %s \n",message.getSip());
+		System.out.printf("sport %s \n",message.getSport());
+		System.out.printf("dip %s \n",message.getDip());
+		System.out.printf("dport %s \n",message.getDport());
+		System.out.println("++++++++++++++++++++++++++++++++++++"); 
 		return "";//this.message.getPacket();
 	}
 }

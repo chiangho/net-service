@@ -1,2 +1,6 @@
+1、先安装winpcap
+2、将jnetpcap.dll复制到c:/window/system32中
+
+
 libpcap函数详解
 https://blog.csdn.net/u012592081/article/details/47047237

@@ -1,7 +1,6 @@
 package com.github.chiangho.nat_service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.jnetpcap.Pcap;
@@ -34,7 +33,7 @@ public class App {
 		}
 
 		
-		PcapIf device = alldevs.get(0);
+		PcapIf device = alldevs.get(1);
 
 		int snaplen = 64 * 1024;
 		int flags = Pcap.MODE_PROMISCUOUS;// 混杂模式 接受所有经过网卡的帧
